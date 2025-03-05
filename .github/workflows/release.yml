@@ -39,15 +39,23 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Link
+        run: npm link
+
       - name: Load env variables for tests
         working-directory: __tests__
         run: |
+          touch .env
           echo "API_KEY=${{ secrets.API_KEY }}" >> .env
           echo "BASE_URL=${{ secrets.BASE_URL }}" >> .env
 
       - name: Install dependencies for tests
         working-directory: __tests__
         run: npm install
+
+      - name: Link
+        working-directory: __tests__
+        run: npm link @qaflow/report
 
       - name: Make jest executable
         working-directory: __tests__
