@@ -1,0 +1,75 @@
+name: Build, Test and Release
+
+on:
+  push:
+    branches:
+      - main
+      - development
+  pull_request:
+    branches:
+      - main
+      - development
+
+# Release-please için gerekli izinler
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  build-and-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'latest'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+
+      - name: Load env variables for tests
+        working-directory: __tests__
+        run: |
+          echo "API_KEY=${{ secrets.API_KEY }}" >> .env
+          echo "BASE_URL=${{ secrets.BASE_URL }}" >> .env
+
+      - name: Install dependencies for tests
+        working-directory: __tests__
+        run: npm install
+
+      - name: Make jest executable
+        working-directory: __tests__
+        run: chmod +x ./node_modules/.bin/jest
+
+      - name: Run tests
+        working-directory: __tests__
+        run: npm run test
+
+  release-please:
+    name: Create Release
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: build-and-test
+    
+    steps:
+      - name: Create or Update Release PR
+        uses: googleapis/release-please-action@v4
+        with:
+          release-type: node
+          config-file: .release-please-config.json
+          manifest-file: .release-please-manifest.json
+          token: ${{ secrets.ACTIONS_SECRET }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACTIONS_SECRET }}

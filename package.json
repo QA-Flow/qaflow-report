@@ -1,0 +1,64 @@
+{
+  "name": "@qaflow/report",
+  "version": "1.0.0",
+  "description": "Test reporting module for QA Flow that integrates with test frameworks like Cypress, Playwright and Jest",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "module": "dist/index.mjs",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "bin"
+  ],
+  "bin": {
+    "@qaflow/report": "./bin/cli.js"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "build": "tsup",
+    "test": "jest",
+    "test:playwright": "playwright test",
+    "test:all": "npm run test && npm run test:playwright",
+    "test:debug": "playwright test --debug",
+    "prepublishOnly": "npm run build && chmod +x ./bin/cli.js"
+  },
+  "keywords": [
+    "test",
+    "report",
+    "qa",
+    "cypress",
+    "playwright",
+    "jest"
+  ],
+  "author": "Doruk Ozgen",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qa-flow/qaflow-report.git"
+  },
+  "bugs": {
+    "url": "https://github.com/qa-flow/qaflow-report/issues"
+  },
+  "homepage": "https://github.com/qa-flow/qaflow-report#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.21.0",
+    "@types/node": "^22.13.8",
+    "eslint": "^9.21.0",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.2",
+    "typescript-eslint": "^8.26.0"
+  },
+  "dependencies": {
+    "axios": "^1.8.1"
+  }
+}
