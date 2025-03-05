@@ -14,7 +14,7 @@ export default defineConfig({
   use: {
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
-    headless: false,
+    headless: true,
     browserName: "chromium",
     baseURL: process.env.BASE_URL
   },
