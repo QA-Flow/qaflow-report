@@ -57,6 +57,10 @@ jobs:
         working-directory: __tests__
         run: npm link @qaflow/report
 
+      - name: Install playwright
+        working-directory: __tests__
+        run: npx playwright install
+
       - name: Make jest executable
         working-directory: __tests__
         run: chmod +x ./node_modules/.bin/jest
