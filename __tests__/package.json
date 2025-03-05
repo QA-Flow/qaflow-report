@@ -1,0 +1,36 @@
+{
+  "name": "qaflow-reporter-tests",
+  "version": "1.0.0",
+  "description": "Tests for QAFlow Reporter",
+  "main": "index.js",
+  "scripts": {
+    "test:jest": "jest",
+    "test:playwright": "playwright test",
+    "test": "npm run test:jest && npm run test:playwright"
+  },
+  "keywords": [
+    "testing",
+    "qa",
+    "reporting"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.26.9",
+    "@babel/preset-env": "^7.26.9",
+    "@babel/preset-typescript": "^7.26.0",
+    "@jest/globals": "^29.7.0",
+    "@playwright/test": "^1.50.1",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.13.9",
+    "babel-jest": "^29.7.0",
+    "dotenv": "^16.4.7",
+    "jest": "^29.7.0",
+    "jest-html-reporter": "^4.0.1",
+    "jest-junit": "^16.0.0",
+    "ts-jest": "^29.2.6",
+    "ts-node": "^10.9.2",
+    "tslib": "^2.8.1",
+    "typescript": "^5.8.2"
+  }
+}
